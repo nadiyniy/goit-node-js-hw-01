@@ -1,3 +1,5 @@
+const { v4: uuidv4 } = require('uuid');
+
 const fs = require('fs/promises');
 const path = require('path');
 
@@ -37,12 +39,10 @@ async function removeContact(contactId) {
 
 async function addContact(name, email, phone) {
 	const contacts = await readContactsFile();
-	const newContact = { id: new Date(), name: name, email: email, phone: phone };
+	const newContact = { id: uuidv4(), name: name, email: email, phone: phone };
 	contacts.push(newContact);
 	await writeContactsFile(contacts);
-	console.log(newContact);
 	return newContact;
 }
-addContact('biba', 'biba@biba.com', '228');
 
 module.exports = { addContact, listContacts, removeContact, getContactById };
